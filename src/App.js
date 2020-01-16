@@ -2,27 +2,53 @@ import React, { Component } from 'react';
 import './App.css';
 
 import axios from './axios-data.js';
-
+import moment from 'moment';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Header from './components/Header/Header';
-import Filters from './containers/Filters/Filters';
+import Filters from './components/Filters/Filters';
 import Table from './components/Table/Table';
 
 class App extends Component {
   state = {
     data: null,
+    filteredData: null,
     error: false,
     loading: true,
     orderBy: 'city',
-    order: 'asc'
+    order: 'asc',
+    startDate: moment(new Date('01/01/2000')),
+    endDate: moment()
+  }
+
+  handleStartDateFilterChange = date => {
+    if (this.state.endDate.isBefore(date)) {
+      this.handleFilterChange(date, date)
+    } else {
+      this.handleFilterChange(date, this.state.endDate)
+    }
+  }
+
+  handleEndDateFilterChange = date => {
+      if (this.state.startDate.isAfter(date)) {
+        this.handleFilterChange(date, date)
+      } else {
+        this.handleFilterChange(this.state.startDate, date)
+      }
+  }
+
+  handleFilterChange = (start, end) => {
+    const filteredData = this.state.data.filter(dataPoint => {
+      return moment(dataPoint.start_date).isAfter(start) && moment(dataPoint.end_date).isBefore(end)
+    });
+    this.setState({filteredData, startDate: start, endDate: end});
   }
 
   componentDidMount() {
     axios.get('/')
       .then(response => {
-        this.setState({data: response.data, loading: false});
+        this.setState({data: response.data, filteredData: response.data, loading: false});
       })
       .catch(() => {
         this.setState({error: true, loading: false});
@@ -50,9 +76,13 @@ class App extends Component {
     if (!this.state.loading && !this.state.error) {
       content = (
         <React.Fragment>
-          <Filters />
+          <Filters 
+            onStartDateChanged={this.handleStartDateFilterChange}
+            onEndDateChanged={this.handleEndDateFilterChange}
+            startDate={this.state.startDate}
+            endDate={this.state.endDate}/>
           <Table 
-            data={this.state.data} 
+            data={this.state.filteredData} 
             onRequestSort={this.handleRequestSort} 
             order={this.state.order} 
             orderBy={this.state.orderBy}
