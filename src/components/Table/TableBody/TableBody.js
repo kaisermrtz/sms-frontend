@@ -32,6 +32,7 @@ const tableBody = (props) => {
     const tableCell = (dataPoint) => {
         return props.cells.map(cell => (
             <TableCell
+                key={cell.id}
                 align={cell.numeric ? 'right': 'left'}>
                     {dataPoint[cell.id]}
             </TableCell>
