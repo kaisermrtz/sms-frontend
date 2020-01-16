@@ -77,7 +77,11 @@ class App extends Component {
   ]
 
   render() {
-    let content = (<CircularProgress />);
+    let content = (
+      <CircularProgress 
+        size={80}
+        left={-40}
+        style={{marginLeft: '50%', marginTop: 50}}/>);
 
     if (!this.state.loading && !this.state.error) {
       content = (
