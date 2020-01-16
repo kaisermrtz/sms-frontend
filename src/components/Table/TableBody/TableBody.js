@@ -4,6 +4,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
+import moment from 'moment';
+
 function desc(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -34,7 +36,7 @@ const tableBody = (props) => {
             <TableCell
                 key={cell.id}
                 align={cell.numeric ? 'right': 'left'}>
-                    {dataPoint[cell.id]}
+                    {cell.date ? moment(dataPoint[cell.id]).format('MM/DD/YYYY') : dataPoint[cell.id]}
             </TableCell>
         ));
     } 

@@ -68,12 +68,12 @@ class App extends Component {
   }
 
   cells = [
-    { id: 'city', numeric: false, label: 'city' },
-    { id: 'start_date', numeric: false, label: 'start date' },
-    { id: 'end_date', numeric: false, label: 'end date' },
-    { id: 'price', numeric: true, label: 'price' },
-    { id: 'status', numeric: false, label: 'status' },
-    { id: 'color', numeric: false, label: 'color' }
+    { id: 'city', numeric: false, date: false, label: 'city'},
+    { id: 'start_date', numeric: false, date: true, label: 'start date',  },
+    { id: 'end_date', numeric: false, date: true, label: 'end date' },
+    { id: 'price', numeric: true, date: false, label: 'price' },
+    { id: 'status', numeric: false, date: false, label: 'status' },
+    { id: 'color', numeric: false, date: false, label: 'color' }
   ]
 
   render() {
