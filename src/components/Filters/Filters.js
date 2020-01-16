@@ -2,6 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/moment';
 import { MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
+import Button from '@material-ui/core/Button';
 
 const filters = (props) => (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -31,6 +32,7 @@ const filters = (props) => (
                 KeyboardButtonProps = {{
                     'aria-label': 'change end date',
                 }} />
+            <Button variant="outlined" color="primary" onClick={props.onResetDates}>Reset dates</Button>
         </Grid>
     </MuiPickersUtilsProvider>
 );

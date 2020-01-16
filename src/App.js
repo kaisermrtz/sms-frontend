@@ -45,6 +45,11 @@ class App extends Component {
     this.setState({filteredData, startDate: start, endDate: end});
   }
 
+  handleResetDates = () => {
+    const data = this.state.data
+    this.setState({startDate: moment(new Date('01/01/2000')), endDate: moment(), filteredData: data});
+  }
+
   componentDidMount() {
     axios.get('/')
       .then(response => {
@@ -80,7 +85,8 @@ class App extends Component {
             onStartDateChanged={this.handleStartDateFilterChange}
             onEndDateChanged={this.handleEndDateFilterChange}
             startDate={this.state.startDate}
-            endDate={this.state.endDate}/>
+            endDate={this.state.endDate}
+            onResetDates={this.handleResetDates}/>
           <Table 
             data={this.state.filteredData} 
             onRequestSort={this.handleRequestSort} 
