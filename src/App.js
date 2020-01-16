@@ -5,6 +5,7 @@ import axios from './axios-data.js';
 import moment from 'moment';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Box from '@material-ui/core/Box';
 
 import Header from './components/Header/Header';
 import Filters from './components/Filters/Filters';
@@ -81,12 +82,14 @@ class App extends Component {
     if (!this.state.loading && !this.state.error) {
       content = (
         <React.Fragment>
-          <Filters 
-            onStartDateChanged={this.handleStartDateFilterChange}
-            onEndDateChanged={this.handleEndDateFilterChange}
-            startDate={this.state.startDate}
-            endDate={this.state.endDate}
-            onResetDates={this.handleResetDates}/>
+          <Box mb={2}>
+            <Filters 
+              onStartDateChanged={this.handleStartDateFilterChange}
+              onEndDateChanged={this.handleEndDateFilterChange}
+              startDate={this.state.startDate}
+              endDate={this.state.endDate}
+              onResetDates={this.handleResetDates}/>
+          </Box>
           <Table 
             data={this.state.filteredData} 
             onRequestSort={this.handleRequestSort} 
